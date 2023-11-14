@@ -20,29 +20,36 @@ export const GetLocalStorage=(nameLocalStorage)=>{
     else
     return array
 }
-export const EditQtyLocalStorage=({nameLocalStorage,arrayCart,id,qty})=>{
+export const EditQtyLocalStorage=({nameLocalStorage,arrayCart})=>{
     console.log('hi');
     //arrayCart = GetLocalStorage(`${nameLocalStorage}`)
-    console.log(qty);
+   
     // let editQty =  arrayCart.find((t) => t.id === id);
     // editQty.qty=5
-    arrayCart=arrayCart.map(t=>t.id===id ?
-        {...t,qty:qty}:
-        t
-        )
+    // arrayCart=arrayCart.map(t=>t.id===id ?
+    //     {...t,qty:qty}:
+    //     t
+    //     )
+    console.log(arrayCart);
+    
+    console.log(nameLocalStorage);
+
 
     localStorage.setItem(`${nameLocalStorage}`, JSON.stringify( arrayCart));
 }
 
-export const DeleteLocalStorage=({nameLocalStorage,id})=>{
+export const DeleteLocalStorage=(nameLocalStorage)=>{
 
-    arrayCart = GetLocalStorage(`${nameLocalStorage}`)
+    localStorage.removeItem(nameLocalStorage);
+    
+
+   // arrayCart = GetLocalStorage(`${nameLocalStorage}`)
     // arrayCart.forEach((item, index, arrayCart) => {
     //     if (item.id === id) {
     //         arrayCart.splice(index, 1);
     //     }
     // })
-    arrayCart= arrayCart.filter(item=>item.id !== id)
-    localStorage.setItem(`${nameLocalStorage}`, JSON.stringify( arrayCart));
+  //  arrayCart= arrayCart.filter(item=>item.id !== id)
+  //  localStorage.setItem(`${nameLocalStorage}`, JSON.stringify( arrayCart));
 
 }

@@ -1,8 +1,8 @@
 import { useProducts } from "../../contexts/ProductsContext";
 import Button from "../../ui/button/Button";
-function ItemCart({ cartProduct }) {
-  const { name, price, qty, src, id } = cartProduct;
-  const { addProduct, deleteProduct, countProduct, dispatch } = useProducts();
+function ItemCart({cartProduct}) {
+  const {name,price,qty,src,id}=cartProduct;
+  const {addProduct,deleteProduct,countProduct,dispatch}=useProducts()
   //console.log(src);
   return (
     <div className="item-cart border rounded-md  p-2 flex justify-between items-center">
@@ -12,14 +12,17 @@ function ItemCart({ cartProduct }) {
 
       <div className="flex flex-col gap-2">
         <span className="text-blue-500">{name}</span>
-        <span className="text-green-700">{price} $</span>
+        <span className="text-green-700">{price}</span>
       </div>
-
-      <div className="w-6 h-6 p-2 rounded-sm flex justify-center items-center text-white bg-orange-500">
-        {qty}
-      </div>
+      <input  className="w-6 h-6 p-2 rounded-sm flex justify-center items-center text-white bg-orange-500" 
+        value={qty} onChange={(e)=>{dispatch({type:'setCount',pyload:e.target.value})}}  type="text"/>
+      {/* <div className="w-6 h-6 p-2 rounded-sm flex justify-center items-center text-white bg-orange-500">
+        
+        {qty} 
+         
+      </div> */}
       <div className=" flex gap-2 ">
-        <Button variant="outlined" callback={() => addProduct(id)}>
+        <Button variant="outlined" callback={()=>addProduct(cartProduct)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -35,7 +38,7 @@ function ItemCart({ cartProduct }) {
             />
           </svg>
         </Button>
-        <Button variant="outlined" callback={() => deleteProduct(id)}>
+        <Button variant="outlined" callback={()=>deleteProduct(cartProduct)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
