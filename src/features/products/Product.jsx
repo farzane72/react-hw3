@@ -1,21 +1,24 @@
 import Button from "../../ui/button/Button";
 import { useProducts } from "../../contexts/ProductsContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 function Product({ product }) {
   const { name, price, src, id } = product;
   const { addToCart, myCartProducts ,addProduct,deleteProduct} = useProducts();
+  const navigate=useNavigate()
   //console.log(myCartProducts);
   //   function handleCart(){
   //     addToCart({...product,qty:1})
   //   }
   return (
-    <div className="bg-white w-[200px] h-[300px] p-2  flex flex-col gap-1 border rounded-md hover:shadow-2xl">
+    <div className="bg-white w-[200px] h-[300px] p-2  flex flex-col gap-1 border rounded-md hover:shadow-2xl"
+      onClick={()=>navigate(`/products/${id}`)}>
       <div className="h-[180px]">
         <img className="w-full h-full" src={`${src}`} />
       </div>
       <div className="h-[120px] flex flex-col gap-2  ">
         <span className="font-bold ">{name}</span>
-        <span>{price}</span>
+        <span>{price}$</span>
         <div className="flex justify-between items-center">
           <Link to={`/products/${id}`}>
             <Button variant="contained">Details</Button>

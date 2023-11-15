@@ -5,7 +5,7 @@ import ItemCart from "./ItemCart";
 import { useProducts } from "../../contexts/ProductsContext";
 function ShoppingCart() {
   const selectedProducts=useLoaderData()
-  const{cartItems}=useProducts()
+  const{cartItems,deleteMyCart}=useProducts()
   //console.log(selectedProducts);
   const totalPrice=selectedProducts.reduce(((sum,item)=>sum + (item.qty * item.price)),0)
     //const {}=props
@@ -27,11 +27,11 @@ function ShoppingCart() {
         </p>
         <p className="">
             <span className="text-blue-500">Total Payment:</span>
-            <span className="">{totalPrice}</span>
+            <span className="">{totalPrice}$</span>
 
         </p>
         <div className="flex justify-between mt-4">
-            <Button variant="contained">
+            <Button variant="contained" callback={deleteMyCart}>
                 Clear
             </Button>
             <Button variant="outlined">

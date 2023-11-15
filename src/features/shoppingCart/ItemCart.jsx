@@ -18,7 +18,8 @@ function ItemCart({ cartProduct }) {
       <div className="w-6 h-6 p-2 rounded-sm flex justify-center items-center text-white bg-orange-500">
         {qty}
       </div>
-      <div className=" flex gap-2 ">
+      <div className=" flex gap-2 " >
+       
         <Button variant="outlined" callback={() => addProduct(id)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

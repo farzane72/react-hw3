@@ -1,5 +1,5 @@
 //import { Link } from "react-router-dom";
-import {  useNavigate } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
 import { useProducts } from "../../contexts/ProductsContext";
 function Header() {
   const navigate=useNavigate()
@@ -7,8 +7,9 @@ function Header() {
   return (
     <div className="w-full bg-white   border-b-2 shadow-2xl  ">
       <div className=" md:container mx-auto p-4   flex justify-between">
-        <div className=" border-b-2 text-blue-500 border-blue-500">
-          Products
+        <div className=" border-b-2 text-blue-500 border-blue-500 font-bold">
+          <Link to='/products'> Products</Link>
+         
         </div>
         <div className="relative" onClick={()=>(navigate('/shoppingcart'))}>
           <svg

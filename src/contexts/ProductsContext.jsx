@@ -11,18 +11,30 @@ import {
   EditQtyLocalStorage,
   DeleteLocalStorage
 } from "../services/localStorage/LoStorageProducts";
-import ItemCart from "../features/shoppingCart/ItemCart";
+
+import { useLocalStorageState } from "../services/localStorage/useLocalStorageState";
 
 
 const ProductsContext = createContext();
 const initialState = {
-  myCartProducts: [],
+  myCartProducts: (GetLocalStorage("myCart")),
+ //myCartProducts:useLocalStorageState([],"myCart"),
   countProduct: 0,
 };
 function reducer(state, action) {
   switch (action.type) {
+    // case "addCart":
+    //   return { ...state, myCartProducts: action.payload };
+    //------------------second after set----------------
     case "addCart":
-      return { ...state, myCartProducts: action.payload };
+        //bayad check ham bokonam ke az ghabl bashe add nakone
+   return { ...state, myCartProducts: [...state.myCartProducts,action.payload] };
+
+   case "render":
+    return { ...state, myCartProducts: [...state.myCartProducts] };
+    
+
+
     case "add":
       return {
         ...state,
@@ -62,28 +74,35 @@ function ProductsProvider({ children }) {
 
   function addToCart(data) {
 
+   // dispatch({ type: "addCart", payload: items });
+   dispatch({ type: "addCart", payload: data });
+
     SetLocalStorage({
       nameLocalStorage: "myCart",
       data: data,
     });
-    //dispatch({type:'select',payload:data.id})
+    
+    
   }
   function addProduct(id) {
     console.log(id);
     dispatch({type:'add',payload:id})
-    EditQtyLocalStorage({
-      arrayCart: myCartProducts,
-      nameLocalStorage: "myCart"
+    //-------------------------------------------------------------
+    // EditQtyLocalStorage({
+    //   arrayCart: myCartProducts,
+    //   nameLocalStorage: "myCart"
    
-    });
+    // });
   }
   function deleteProduct(id) {
     dispatch({type:'delete',payload:id})
-    EditQtyLocalStorage({
-      arrayCart: myCartProducts,
-      nameLocalStorage: "myCart"
+
+    //-------------------------------------------------
+    // EditQtyLocalStorage({
+    //   arrayCart: myCartProducts,
+    //   nameLocalStorage: "myCart"
     
-    });
+    // });
   }
 
   function deleteMyCart(){
@@ -99,10 +118,15 @@ function ProductsProvider({ children }) {
 
   // },[cartItems])
   useEffect(() => {
-    const items = GetLocalStorage("myCart");
+   
+  EditQtyLocalStorage({
+   arrayCart: myCartProducts,
+   nameLocalStorage: "myCart"
+ 
+ });
 
-    dispatch({ type: "addCart", payload: items });
-  }, [dispatch]);
+   
+ }, [myCartProducts,dispatch]);
 
   return (
     <ProductsContext.Provider
